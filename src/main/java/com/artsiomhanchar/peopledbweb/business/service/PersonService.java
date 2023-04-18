@@ -41,13 +41,15 @@ public class PersonService {
 
     @Transactional
     public void deleteAllById(Iterable<Long> ids) {
-        Iterable<Person> peopleToDelete = personRepository.findAllById(ids);
-        Stream<Person> peopleStream = StreamSupport
-                .stream(peopleToDelete.spliterator(), false);
+//        Iterable<Person> peopleToDelete = personRepository.findAllById(ids);
+//        Stream<Person> peopleStream = StreamSupport
+//                .stream(peopleToDelete.spliterator(), false);
+//
+//        Set<String> filenames = peopleStream
+//                .map(Person::getPhotoFileName)
+//                .collect(Collectors.toSet());
 
-        Set<String> filenames = peopleStream
-                .map(Person::getPhotoFileName)
-                .collect(Collectors.toSet());
+        Set<String> filenames = personRepository.findFilenamesByIds(ids);
 
         personRepository.deleteAllById(ids);
         fileStorageRepository.deleteAllByName(filenames);
