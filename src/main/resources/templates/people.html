@@ -36,7 +36,10 @@
                 <th scope="row" th:text="${#temporals.format(person.dob, 'MMMM dd, yyyy')}">@mdo</th>
                 <th scope="row" th:text="${{person.email}}" class="d-sm-none d-md-table-cell">@mdo</th>
                 <th scope="row" th:text="${{person.salary}}">@mdo</th>
-                <th scope="row" th:text="${person.photoFileName}">@mdo</th>
+<!--                <th scope="row" th:text="${person.photoFileName}">@mdo</th>-->
+                <td>
+                    <img th:src="@{/people/images/{filename}(filename=${person.photoFileName})}" height="32px" width="32px" />
+                </td>
             </tr>
             <tr th:remove="all">
                 <th scope="row">2</th>
