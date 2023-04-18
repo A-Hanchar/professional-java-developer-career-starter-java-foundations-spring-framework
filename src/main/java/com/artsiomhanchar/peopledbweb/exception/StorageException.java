@@ -1,7 +1,5 @@
 package com.artsiomhanchar.peopledbweb.exception;
 
-import java.io.IOException;
-
 public class StorageException extends RuntimeException {
     public StorageException() {
     }

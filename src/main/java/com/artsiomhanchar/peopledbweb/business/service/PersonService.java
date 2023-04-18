@@ -3,10 +3,8 @@ package com.artsiomhanchar.peopledbweb.business.service;
 import com.artsiomhanchar.peopledbweb.business.model.Person;
 import com.artsiomhanchar.peopledbweb.data.FileStorageRepository;
 import com.artsiomhanchar.peopledbweb.data.PersonRepository;
-import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,12 +12,8 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-import java.util.stream.StreamSupport;
 import java.util.zip.ZipInputStream;
 
 @Service
@@ -52,7 +46,6 @@ public class PersonService {
         return personRepository.findAll(pageable);
     }
 
-    @Transactional
     public void deleteAllById(Iterable<Long> ids) {
 //        Iterable<Person> peopleToDelete = personRepository.findAllById(ids);
 //        Stream<Person> peopleStream = StreamSupport
