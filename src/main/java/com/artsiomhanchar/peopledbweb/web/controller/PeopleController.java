@@ -1,6 +1,7 @@
 package com.artsiomhanchar.peopledbweb.web.controller;
 
 import com.artsiomhanchar.peopledbweb.business.model.Person;
+import com.artsiomhanchar.peopledbweb.business.service.PersonService;
 import com.artsiomhanchar.peopledbweb.data.FileStorageRepository;
 import com.artsiomhanchar.peopledbweb.data.PersonRepository;
 import com.artsiomhanchar.peopledbweb.exception.StorageException;
@@ -32,9 +33,12 @@ public class PeopleController {
     private PersonRepository personRepository;
     private FileStorageRepository fileStorageRepository;
 
-    public PeopleController(PersonRepository personRepository, FileStorageRepository fileStorageRepository) {
+    private PersonService personService;
+
+    public PeopleController(PersonRepository personRepository, FileStorageRepository fileStorageRepository, PersonService personService) {
         this.personRepository = personRepository;
         this.fileStorageRepository = fileStorageRepository;
+        this.personService = personService;
     }
 
     @ModelAttribute("people")
@@ -70,8 +74,7 @@ public class PeopleController {
 
         if(!errors.hasErrors()) {
             try {
-                fileStorageRepository.save(photoFile.getOriginalFilename(), photoFile.getInputStream());
-                personRepository.save(person);
+                personService.save(person, photoFile.getInputStream());
 
                 return "redirect:people";
             } catch (StorageException e) {
