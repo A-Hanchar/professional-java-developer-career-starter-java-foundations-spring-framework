@@ -12,3 +12,5 @@ Add .env variable:
 3) Environment Variables 
 4) edit
 5) add variable with key=STORAGE_FOLDER and value=folderPath (for keeping photos)
+
+Set JDBC H2 URL: src/main/resources/application.properties: spring.datasource.url=jdbc:h2:URL_Path
