@@ -8,6 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.InputStream;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 @Service
 public class PersonService {
@@ -35,7 +39,17 @@ public class PersonService {
         return personRepository.findAll();
     }
 
-    public void deleteAllById(Iterable<? extends Long> longs) {
-        personRepository.deleteAllById(longs);
+    @Transactional
+    public void deleteAllById(Iterable<Long> ids) {
+        Iterable<Person> peopleToDelete = personRepository.findAllById(ids);
+        Stream<Person> peopleStream = StreamSupport
+                .stream(peopleToDelete.spliterator(), false);
+
+        Set<String> filenames = peopleStream
+                .map(Person::getPhotoFileName)
+                .collect(Collectors.toSet());
+
+        personRepository.deleteAllById(ids);
+        fileStorageRepository.deleteAllByName(filenames);
     }
 }

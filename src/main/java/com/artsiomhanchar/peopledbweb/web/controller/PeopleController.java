@@ -92,7 +92,7 @@ public class PeopleController {
         log.info(selections);
 
         if (selections.isPresent()) {
-            personRepository.deleteAllById(selections.get());
+            personService.deleteAllById(selections.get());
         }
 
         return "redirect:people";
