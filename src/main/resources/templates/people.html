@@ -35,10 +35,10 @@
                 <th scope="row" th:text="${person.firstName}">Otto</th>
                 <th scope="row" th:text="${#temporals.format(person.dob, 'MMMM dd, yyyy')}">@mdo</th>
                 <th scope="row" th:text="${{person.email}}" class="d-sm-none d-md-table-cell">@mdo</th>
-                <th scope="row" th:text="${{person.salary}}">@mdo</th>
+                <th scope="row" th:text="${{person.salary}}" class="text-end">@mdo</th>
 <!--                <th scope="row" th:text="${person.photoFileName}">@mdo</th>-->
                 <td>
-                    <img th:src="@{/people/images/{filename}(filename=${person.photoFileName})}" height="32px" width="32px" />
+                    <img th:if="${person.photoFileName}" th:src="@{/people/images/{filename}(filename=${person.photoFileName})}" height="32px" width="32px" />
                 </td>
             </tr>
             <tr th:remove="all">
@@ -59,6 +59,9 @@
         <button type="submit" name="delete" value="true" class="btn btn-danger mb-5">Delete</button>
     </form>
 
+    <div class="alert alert-danger" role="alert" th:text="${errorMsg}" th:if="${errorMsg}">
+        A simple danger alert—check it out!
+    </div>
 
     <h2>Person Form</h2>
     <form th:object="${person}" method="post" novalidate enctype="multipart/form-data">
